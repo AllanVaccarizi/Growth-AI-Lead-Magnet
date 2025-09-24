@@ -439,7 +439,10 @@ function createROICalculator(containerId) {
                 
                 <div class="automation-message">
                     <h3>Libérez votre potentiel avec l'automatisation</h3>
-                    <p>En automatisant cette tâche répétitive, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !</p>
+                    <p>En automatisant cette tâche répétitive, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... 
+                    <br>
+                    <br>
+                    L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !</p>
                 </div>
             </div>
         </div>
