@@ -1,4 +1,4 @@
-// Calculatrice ROI Automatisation - Version Embed
+// Calculatrice ROI Automatisation - Version Complète avec nouveaux styles inputs
 // Ajoutez ce script à votre page HTML
 
 function createROICalculator(containerId) {
@@ -74,27 +74,40 @@ function createROICalculator(containerId) {
         .roi-calculator select, 
         .roi-calculator input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #c1a53a;
+            height: auto;
+            min-height: 2.75rem;
+            margin-bottom: 0px;
+            padding: 0.5rem 0.75rem;
+            border-style: solid;
+            border-width: 2px;
+            border-color: rgba(231, 191, 38, 0.4);
             border-radius: 8px;
-            background-color: #2a2a2a;
-            color: white;
-            font-size: 0.95em;
-            font-family: 'Archivo', sans-serif;
-            transition: all 0.3s ease;
+            background-color: rgba(231, 191, 38, 0.2);
+            backdrop-filter: blur(30px);
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 400;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
         
         .roi-calculator select:focus, 
         .roi-calculator input:focus {
             outline: none;
-            border-color: #c1a53a;
-            box-shadow: 0 0 0 3px rgba(193, 165, 58, 0.3);
+            border-color: #ffffff;
+            background-color: rgba(190, 169, 88, 0.2);
+        }
+        
+        .roi-calculator input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
         
         .roi-calculator select option {
-            background-color: #2a2a2a;
-            color: white;
+            background-color: rgba(231, 191, 38, 0.8);
+            color: #ffffff;
+            padding: 8px;
         }
         
         .roi-calculator #customHoursGroup {
@@ -148,6 +161,7 @@ function createROICalculator(containerId) {
             transform: translateY(-1px);
         }
         
+        /* Résultat sur une ligne */
         .roi-calculator .result-summary {
             display: none;
             background: rgba(160, 160, 160, 0.3);
@@ -248,6 +262,7 @@ function createROICalculator(containerId) {
             transform: translateY(-1px);
         }
         
+        /* Détails complets */
         .roi-calculator .result-container {
             margin-top: 20px;
             padding: 30px;
@@ -521,33 +536,3 @@ function createROICalculator(containerId) {
         // Ou déclenchez un événement personnalisé pour votre système
     });
 }
-
-// UTILISATION :
-// 1. Ajoutez les polices Google Fonts dans votre <head> :
-// <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
-
-// 2. Créez un div avec un ID dans votre HTML :
-// <div id="roi-calculator"></div>
-
-// 3. Appelez la fonction :
-// createROICalculator('roi-calculator');
-
-// Exemple d'utilisation complète :
-/*
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id="roi-calculator"></div>
-    
-    <script>
-        // Insérez tout le code ci-dessus ici
-        
-        // Puis initialisez la calculatrice
-        createROICalculator('roi-calculator');
-    </script>
-</body>
-</html>
-*/
