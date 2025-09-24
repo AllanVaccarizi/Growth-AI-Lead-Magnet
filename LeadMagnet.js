@@ -105,7 +105,7 @@ function createROICalculator(containerId) {
         }
         
         .roi-calculator select option {
-            background-color: rgba(231, 191, 38, 0.8);
+            background-color: #2a2a2a;
             color: #ffffff;
             padding: 8px;
         }
