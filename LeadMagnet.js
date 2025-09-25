@@ -531,7 +531,7 @@ function createROICalculator(containerId) {
     // Gestion du bouton CTA - PERSONNALISEZ CETTE PARTIE
     document.getElementById('ctaBtn').addEventListener('click', function() {
         // Remplacez par votre URL de contact ou action personnalisée
-        window.open('https://votre-site.com/contact', '_blank');
+        window.location.href = '#form';
         // Ou redirigez vers une page : window.location.href = 'https://votre-site.com/contact';
         // Ou déclenchez un événement personnalisé pour votre système
     });
