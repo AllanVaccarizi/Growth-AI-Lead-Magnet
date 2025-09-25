@@ -16,7 +16,7 @@ function createROICalculator(containerId) {
             padding: 30px;
             max-width: 1200px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(193, 165, 58, 0.2);
+            box-shadow: 5px 0 15px 0 #e2bc36, 5px 2px 15px 0 #e2bc36;
             box-sizing: border-box;
         }
         
@@ -438,11 +438,8 @@ function createROICalculator(containerId) {
                 </div>
                 
                 <div class="automation-message">
-                    <h3>Libérez votre potentiel avec l'automatisation</h3>
-                    <p>En automatisant cette tâche répétitive, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... 
-                    <br>
-                    <br>
-                    L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !</p>
+                    <h3>🚀 Libérez votre potentiel avec l'automatisation</h3>
+                    <p>En automatisant cette tâche répétitive, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !</p>
                 </div>
             </div>
         </div>
@@ -534,7 +531,7 @@ function createROICalculator(containerId) {
     // Gestion du bouton CTA - PERSONNALISEZ CETTE PARTIE
     document.getElementById('ctaBtn').addEventListener('click', function() {
         // Remplacez par votre URL de contact ou action personnalisée
-        window.location.href = '#form';
+        window.open('https://votre-site.com/contact', '_blank');
         // Ou redirigez vers une page : window.location.href = 'https://votre-site.com/contact';
         // Ou déclenchez un événement personnalisé pour votre système
     });
