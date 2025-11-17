@@ -610,7 +610,7 @@ function createROICalculator(containerId) {
             `;
             
             automationTitle = '⏰ Récupérez un temps précieux';
-            automationText = `Chaque année, votre équipe consacre ${totalAnnualHours.toLocaleString('fr-FR')} heures à cette tâche répétitive. En l'automatisant, vous libérez ce temps pour des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation transforme le temps perdu en opportunités de croissance !`;
+            automationText = `Chaque année, votre équipe consacre ${totalAnnualHours.toLocaleString('fr-FR')} heures à cette tâche répétitive. En l'automatisant, vous libérez ce temps pour des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... <br><br>L'automatisation transforme le temps perdu en opportunités de croissance !`;
             
         } else {
             // Affichage en coût
