@@ -1,4 +1,4 @@
-// Calculatrice ROI Automatisation - Version 2 étapes
+// Calculatrice ROI Automatisation - Version 2
 // Ajoutez ce script à votre page HTML
 
 function createROICalculator(containerId) {
