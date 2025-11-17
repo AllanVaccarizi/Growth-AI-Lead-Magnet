@@ -1,4 +1,4 @@
-// Calculatrice ROI Automatisation - Version Complète avec nouveaux styles inputs
+// Calculatrice ROI Automatisation - Version 2 étapes
 // Ajoutez ce script à votre page HTML
 
 function createROICalculator(containerId) {
@@ -58,6 +58,10 @@ function createROICalculator(containerId) {
             flex-direction: column;
         }
         
+        .roi-calculator .form-group.full-width {
+            flex: 1 1 100%;
+        }
+        
         .roi-calculator .form-group.button-group {
             flex: 0 0 auto;
             min-width: 200px;
@@ -72,7 +76,8 @@ function createROICalculator(containerId) {
         }
         
         .roi-calculator select, 
-        .roi-calculator input {
+        .roi-calculator input[type="number"],
+        .roi-calculator input[type="text"] {
             width: 100%;
             height: auto;
             min-height: 2.75rem;
@@ -110,9 +115,26 @@ function createROICalculator(containerId) {
             padding: 8px;
         }
         
-        .roi-calculator #customHoursGroup {
-            display: none;
-            margin-top: 20px;
+        .roi-calculator .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .roi-calculator input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            min-height: 20px;
+            cursor: pointer;
+            accent-color: #c1a53a;
+        }
+        
+        .roi-calculator .checkbox-container label {
+            margin: 0;
+            cursor: pointer;
+            white-space: normal;
         }
         
         .roi-calculator .button-vortex-blur {
@@ -159,6 +181,15 @@ function createROICalculator(containerId) {
             box-shadow: 0 4px 10px 0 hsla(47, 80%, 53%, 0.5), 
                         inset 0 -12px 40px 0 rgba(193, 165, 58, 0.3);
             transform: translateY(-1px);
+        }
+        
+        .roi-calculator .button-vortex-blur:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .roi-calculator .button-vortex-blur:disabled:hover .button-vortex-blur__container {
+            transform: none;
         }
         
         /* Résultat sur une ligne */
@@ -339,6 +370,12 @@ function createROICalculator(containerId) {
             .roi-calculator .result-buttons {
                 justify-content: center;
                 width: 100%;
+                flex-direction: column;
+            }
+            
+            .roi-calculator .details-btn,
+            .roi-calculator .cta-btn {
+                width: 100%;
             }
             
             .roi-calculator h1 {
@@ -363,22 +400,28 @@ function createROICalculator(containerId) {
             <h1>Calculatrice ROI Automatisation</h1>
             <p class="subtitle">Découvrez combien vous coûtent vos tâches répétitives</p>
             
-            <div class="form-container" id="formContainer">
-                <form id="calculatorForm">
+            <!-- ÉTAPE 1 : Informations sur la tâche -->
+            <div class="form-container" id="step1Container">
+                <form id="step1Form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="task">Tâche à automatiser</label>
                             <select id="task" required>
                                 <option value="">Sélectionnez une tâche</option>
-                                <option value="5">Saisie CRM (5h/semaine)</option>
-                                <option value="6">Qualification des leads (6h/semaine)</option>
-                                <option value="4">Saisie de factures (4h/semaine)</option>
-                                <option value="4">Envoi d'emails de prospection (4h/semaine)</option>
-                                <option value="8">Réponses emails support client (8h/semaine)</option>
-                                <option value="5">Rédaction d'articles de blog (5h/semaine)</option>
-                                <option value="3">Publication sur réseaux sociaux (3h/semaine)</option>
-                                <option value="custom">Autre (préciser)</option>
+                                <option value="Saisie CRM">Saisie CRM</option>
+                                <option value="Qualification des leads">Qualification des leads</option>
+                                <option value="Saisie de factures">Saisie de factures</option>
+                                <option value="Envoi d'emails de prospection">Envoi d'emails de prospection</option>
+                                <option value="Réponses emails support client">Réponses emails support client</option>
+                                <option value="Rédaction d'articles de blog">Rédaction d'articles de blog</option>
+                                <option value="Publication sur réseaux sociaux">Publication sur réseaux sociaux</option>
+                                <option value="Autre">Autre</option>
                             </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hoursPerWeek">Heures par semaine</label>
+                            <input type="number" id="hoursPerWeek" min="0.5" max="80" step="0.5" required placeholder="Ex: 5">
                         </div>
                         
                         <div class="form-group">
@@ -386,24 +429,41 @@ function createROICalculator(containerId) {
                             <input type="number" id="employees" min="1" max="100" required placeholder="Ex: 2">
                         </div>
                         
-                        <div class="form-group">
-                            <label for="salary">Salaire brut annuel (€)</label>
-                            <input type="number" id="salary" min="15000" max="200000" required placeholder="Ex: 30000">
-                        </div>
-                        
                         <div class="form-group button-group">
                             <label>&nbsp;</label>
                             <button type="submit" class="button-vortex-blur">
                                 <div class="button-vortex-blur__container">
-                                    Calculer le coût annuel
+                                    Continuer
                                 </div>
                             </button>
                         </div>
                     </div>
+                </form>
+            </div>
+            
+            <!-- ÉTAPE 2 : Informations salariales -->
+            <div class="form-container hidden" id="step2Container">
+                <form id="step2Form">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="salary">Salaire brut annuel moyen (€)</label>
+                            <input type="number" id="salary" min="15000" max="200000" placeholder="Ex: 30000">
+                        </div>
+                    </div>
                     
-                    <div class="form-group" id="customHoursGroup">
-                        <label for="customHours">Nombre d'heures par semaine :</label>
-                        <input type="number" id="customHours" min="1" max="40" step="0.5" placeholder="Ex: 3.5">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="noSalaryInfo">
+                        <label for="noSalaryInfo">Je ne dispose pas de cette information</label>
+                    </div>
+                    
+                    <div class="form-row" style="margin-top: 20px;">
+                        <div class="form-group button-group" style="flex: 1;">
+                            <button type="submit" class="button-vortex-blur">
+                                <div class="button-vortex-blur__container">
+                                    Calculer le résultat
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -411,13 +471,13 @@ function createROICalculator(containerId) {
             <!-- Résumé du résultat sur une ligne -->
             <div id="resultSummary" class="result-summary">
                 <div class="cost-summary">
-                    <div class="cost-label">Coût Total</div>
+                    <div class="cost-label" id="resultLabel"></div>
                     <div class="cost-value" id="costValue"></div>
                 </div>
                 <div class="result-buttons">
                     <button class="details-btn" id="detailsBtn">
                         <div class="details-btn__container">
-                            Détails
+                            Voir les détails
                         </div>
                     </button>
                     <button class="cta-btn" id="ctaBtn">
@@ -438,8 +498,8 @@ function createROICalculator(containerId) {
                 </div>
                 
                 <div class="automation-message">
-                    <h3>🚀 Libérez votre potentiel avec l'automatisation</h3>
-                    <p>En automatisant cette tâche répétitive, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !</p>
+                    <h3 id="automationMessageTitle"></h3>
+                    <p id="automationMessageText"></p>
                 </div>
             </div>
         </div>
@@ -450,68 +510,112 @@ function createROICalculator(containerId) {
     
     // JavaScript Functionality
     
-    // Gestion de l'affichage du champ personnalisé
-    document.getElementById('task').addEventListener('change', function() {
-        const customGroup = document.getElementById('customHoursGroup');
-        const customHours = document.getElementById('customHours');
+    // Variables globales pour stocker les données de l'étape 1
+    let step1Data = {};
+    
+    // Gestion de la soumission de l'étape 1
+    document.getElementById('step1Form').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        if (this.value === 'custom') {
-            customGroup.style.display = 'block';
-            customHours.required = true;
+        // Stocker les données
+        step1Data = {
+            task: document.getElementById('task').value,
+            taskName: document.getElementById('task').options[document.getElementById('task').selectedIndex].text,
+            hoursPerWeek: parseFloat(document.getElementById('hoursPerWeek').value),
+            employees: parseInt(document.getElementById('employees').value)
+        };
+        
+        // Masquer l'étape 1 et afficher l'étape 2
+        document.getElementById('step1Container').classList.add('hidden');
+        document.getElementById('step2Container').classList.remove('hidden');
+    });
+    
+    // Gestion de la checkbox "Je ne dispose pas de cette information"
+    document.getElementById('noSalaryInfo').addEventListener('change', function() {
+        const salaryInput = document.getElementById('salary');
+        if (this.checked) {
+            salaryInput.value = '';
+            salaryInput.disabled = true;
+            salaryInput.required = false;
         } else {
-            customGroup.style.display = 'none';
-            customHours.required = false;
-            customHours.value = '';
+            salaryInput.disabled = false;
+            salaryInput.required = true;
         }
     });
     
-    // Calcul et affichage des résultats
-    document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+    // Gestion de la soumission de l'étape 2
+    document.getElementById('step2Form').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const taskSelect = document.getElementById('task');
-        const customHours = document.getElementById('customHours');
-        const employees = parseInt(document.getElementById('employees').value);
-        const salary = parseInt(document.getElementById('salary').value);
+        const noSalaryInfo = document.getElementById('noSalaryInfo').checked;
+        const salary = document.getElementById('salary').value;
         
-        // Déterminer les heures par semaine
-        let hoursPerWeek;
-        let taskName;
-        
-        if (taskSelect.value === 'custom') {
-            hoursPerWeek = parseFloat(customHours.value);
-            taskName = 'Tâche personnalisée';
-        } else {
-            hoursPerWeek = parseFloat(taskSelect.value);
-            taskName = taskSelect.options[taskSelect.selectedIndex].text.split(' (')[0];
+        // Validation : soit le salaire est renseigné, soit la case est cochée
+        if (!noSalaryInfo && !salary) {
+            alert('Veuillez renseigner un salaire ou cocher la case "Je ne dispose pas de cette information"');
+            return;
         }
         
-        // Calculs
-        const annualHours = hoursPerWeek * 52;
-        const hourlyRate = salary / 1820;
-        const annualCost = annualHours * hourlyRate * employees;
+        // Calculs de base
+        const totalWeeklyHours = step1Data.hoursPerWeek * step1Data.employees;
+        const annualHours = step1Data.hoursPerWeek * 52;
+        const totalAnnualHours = annualHours * step1Data.employees;
         
-        // Masquer le formulaire et afficher le résumé
-        document.getElementById('formContainer').classList.add('hidden');
+        // Masquer l'étape 2
+        document.getElementById('step2Container').classList.add('hidden');
+        
+        // Afficher le résumé
         document.getElementById('resultSummary').style.display = 'flex';
         
-        // Affichage du coût dans le résumé
-        document.getElementById('costValue').textContent = 
-            new Intl.NumberFormat('fr-FR', {
+        let calculationStepsHTML = '';
+        let automationTitle = '';
+        let automationText = '';
+        
+        if (noSalaryInfo) {
+            // Affichage en heures
+            document.getElementById('resultLabel').textContent = 'Temps Total Perdu';
+            document.getElementById('costValue').textContent = `${totalAnnualHours.toLocaleString('fr-FR')} heures/an`;
+            
+            calculationStepsHTML = `
+                <div class="calculation-step">• Tâche : ${step1Data.taskName}</div>
+                <div class="calculation-step">• Temps par semaine : ${step1Data.hoursPerWeek}h × ${step1Data.employees} collaborateur(s) = ${totalWeeklyHours}h/semaine</div>
+                <div class="calculation-step">• Temps par personne et par an : ${step1Data.hoursPerWeek}h × 52 semaines = ${annualHours}h/an</div>
+                <div class="calculation-step">• <strong>Temps total perdu annuellement : ${totalAnnualHours.toLocaleString('fr-FR')} heures/an</strong></div>
+            `;
+            
+            automationTitle = '⏰ Récupérez un temps précieux';
+            automationText = `Chaque année, votre équipe consacre ${totalAnnualHours.toLocaleString('fr-FR')} heures à cette tâche répétitive. En l'automatisant, vous libérez ce temps pour des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation transforme le temps perdu en opportunités de croissance !`;
+            
+        } else {
+            // Affichage en coût
+            const salaryValue = parseInt(salary);
+            const hourlyRate = salaryValue / 1820;
+            const annualCost = totalAnnualHours * hourlyRate;
+            
+            document.getElementById('resultLabel').textContent = 'Coût Total Annuel';
+            document.getElementById('costValue').textContent = new Intl.NumberFormat('fr-FR', {
                 style: 'currency',
                 currency: 'EUR',
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             }).format(annualCost) + '/an';
+            
+            calculationStepsHTML = `
+                <div class="calculation-step">• Tâche : ${step1Data.taskName}</div>
+                <div class="calculation-step">• Temps par semaine : ${step1Data.hoursPerWeek}h × ${step1Data.employees} collaborateur(s) = ${totalWeeklyHours}h/semaine</div>
+                <div class="calculation-step">• Temps annuel : ${step1Data.hoursPerWeek}h × 52 semaines = ${annualHours}h/an par personne</div>
+                <div class="calculation-step">• Taux horaire : ${salaryValue.toLocaleString('fr-FR')}€ ÷ 1820h = ${hourlyRate.toFixed(2)}€/h</div>
+                <div class="calculation-step">• <strong>Coût total : ${totalAnnualHours}h × ${hourlyRate.toFixed(2)}€ = ${annualCost.toLocaleString('fr-FR', {maximumFractionDigits: 0})}€/an</strong></div>
+            `;
+            
+            automationTitle = '🚀 Libérez votre potentiel avec l\'automatisation';
+            automationText = `Cette tâche répétitive vous coûte ${new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0}).format(annualCost)} par an. En l'automatisant, vos collaborateurs pourront se concentrer sur des activités à forte valeur ajoutée : développement commercial, innovation, relation client premium, stratégie... L'automatisation n'est pas juste une économie, c'est un investissement dans la croissance de votre entreprise !`;
+        }
         
-        // Préparer les détails (masqués)
-        document.getElementById('calculationSteps').innerHTML = `
-            <div class="calculation-step">• Tâche : ${taskName}</div>
-            <div class="calculation-step">• Temps par semaine : ${hoursPerWeek}h × ${employees} collaborateur(s) = ${hoursPerWeek * employees}h/semaine</div>
-            <div class="calculation-step">• Temps annuel : ${hoursPerWeek}h × 52 semaines = ${annualHours}h/an par personne</div>
-            <div class="calculation-step">• Taux horaire : ${salary.toLocaleString('fr-FR')}€ ÷ 1820h = ${hourlyRate.toFixed(2)}€/h</div>
-            <div class="calculation-step">• Coût total : ${annualHours}h × ${hourlyRate.toFixed(2)}€ × ${employees} = <strong>${annualCost.toLocaleString('fr-FR', {maximumFractionDigits: 0})}€/an</strong></div>
-        `;
+        // Remplir les détails
+        document.getElementById('calculationSteps').innerHTML = calculationStepsHTML;
+        document.getElementById('automationMessageTitle').textContent = automationTitle;
+        document.getElementById('automationMessageText').textContent = automationText;
     });
     
     // Gestion du bouton Détails
@@ -520,11 +624,11 @@ function createROICalculator(containerId) {
         const buttonContainer = this.querySelector('.details-btn__container');
         if (resultDetails.style.display === 'block') {
             resultDetails.style.display = 'none';
-            buttonContainer.textContent = 'Détails';
+            buttonContainer.textContent = 'Voir les détails';
         } else {
             resultDetails.style.display = 'block';
-            buttonContainer.textContent = 'Masquer';
-            resultDetails.scrollIntoView({ behavior: 'smooth' });
+            buttonContainer.textContent = 'Masquer les détails';
+            resultDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     });
     
