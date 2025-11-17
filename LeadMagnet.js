@@ -1,4 +1,4 @@
-// Calculatrice ROI Automatisation - Version 2
+// Calculatrice ROI Automatisation - Version 2 étapes
 // Ajoutez ce script à votre page HTML
 
 function createROICalculator(containerId) {
@@ -115,26 +115,50 @@ function createROICalculator(containerId) {
             padding: 8px;
         }
         
-        .roi-calculator .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
+        .roi-calculator .button-gray {
+            position: relative;
+            color: rgb(249, 244, 235);
+            font-size: 1.125rem;
+            line-height: 1em;
+            letter-spacing: -0.04em;
+            text-decoration: none;
+            z-index: 10;
+            user-select: none;
+            display: grid;
+            width: 100%;
+            border: none;
+            background: transparent;
             cursor: pointer;
-        }
-        
-        .roi-calculator input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            min-height: 20px;
-            cursor: pointer;
-            accent-color: #c1a53a;
-        }
-        
-        .roi-calculator .checkbox-container label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
             margin: 0;
-            cursor: pointer;
-            white-space: normal;
+            padding: 0;
+        }
+        
+        .roi-calculator .button-gray__container {
+            display: flex;
+            padding: 12px 20px;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            border-style: solid;
+            border-width: 1.5px;
+            border-color: rgb(150, 150, 150);
+            border-radius: 8px;
+            background-color: rgba(150, 150, 150, 0.05);
+            box-shadow: 0 2px 5px 0 hsla(0, 0%, 50%, 0.3), 
+                        inset 0 -8px 32px 0 rgba(150, 150, 150, 0.1);
+            grid-area: 1 / 1;
+            transition: all 0.3s ease;
+            height: 48px;
+            box-sizing: border-box;
+        }
+        
+        .roi-calculator .button-gray:hover .button-gray__container {
+            background-color: rgba(150, 150, 150, 0.1);
+            box-shadow: 0 4px 10px 0 hsla(0, 0%, 50%, 0.4), 
+                        inset 0 -12px 40px 0 rgba(150, 150, 150, 0.2);
+            transform: translateY(-1px);
         }
         
         .roi-calculator .button-vortex-blur {
@@ -451,13 +475,15 @@ function createROICalculator(containerId) {
                         </div>
                     </div>
                     
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="noSalaryInfo">
-                        <label for="noSalaryInfo">Je ne dispose pas de cette information</label>
-                    </div>
-                    
                     <div class="form-row" style="margin-top: 20px;">
-                        <div class="form-group button-group" style="flex: 1;">
+                        <div class="form-group" style="flex: 1;">
+                            <button type="button" id="noSalaryBtn" class="button-gray">
+                                <div class="button-gray__container">
+                                    Je ne dispose pas de cette information
+                                </div>
+                            </button>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
                             <button type="submit" class="button-vortex-blur">
                                 <div class="button-vortex-blur__container">
                                     Calculer le résultat
@@ -530,31 +556,31 @@ function createROICalculator(containerId) {
         document.getElementById('step2Container').classList.remove('hidden');
     });
     
-    // Gestion de la checkbox "Je ne dispose pas de cette information"
-    document.getElementById('noSalaryInfo').addEventListener('change', function() {
-        const salaryInput = document.getElementById('salary');
-        if (this.checked) {
-            salaryInput.value = '';
-            salaryInput.disabled = true;
-            salaryInput.required = false;
-        } else {
-            salaryInput.disabled = false;
-            salaryInput.required = true;
-        }
+    // Gestion du bouton "Je ne dispose pas de cette information"
+    document.getElementById('noSalaryBtn').addEventListener('click', function() {
+        // Calculer directement avec les heures sans salaire
+        calculateResults(true);
     });
     
-    // Gestion de la soumission de l'étape 2
+    // Gestion de la soumission de l'étape 2 (avec salaire)
     document.getElementById('step2Form').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const noSalaryInfo = document.getElementById('noSalaryInfo').checked;
         const salary = document.getElementById('salary').value;
         
-        // Validation : soit le salaire est renseigné, soit la case est cochée
-        if (!noSalaryInfo && !salary) {
-            alert('Veuillez renseigner un salaire ou cocher la case "Je ne dispose pas de cette information"');
+        // Validation : le salaire doit être renseigné
+        if (!salary) {
+            alert('Veuillez renseigner un salaire ou cliquer sur "Je ne dispose pas de cette information"');
             return;
         }
+        
+        // Calculer avec le salaire
+        calculateResults(false);
+    });
+    
+    // Fonction de calcul des résultats
+    function calculateResults(noSalaryInfo) {
+        const salary = document.getElementById('salary').value;
         
         // Calculs de base
         const totalWeeklyHours = step1Data.hoursPerWeek * step1Data.employees;
@@ -616,7 +642,7 @@ function createROICalculator(containerId) {
         document.getElementById('calculationSteps').innerHTML = calculationStepsHTML;
         document.getElementById('automationMessageTitle').textContent = automationTitle;
         document.getElementById('automationMessageText').textContent = automationText;
-    });
+    }
     
     // Gestion du bouton Détails
     document.getElementById('detailsBtn').addEventListener('click', function() {
